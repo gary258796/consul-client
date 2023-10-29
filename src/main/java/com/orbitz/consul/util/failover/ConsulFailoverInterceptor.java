@@ -22,7 +22,7 @@ public class ConsulFailoverInterceptor implements Interceptor {
 	 * @param targets
 	 */
 	public ConsulFailoverInterceptor(Collection<HostAndPort> targets, long timeout) {
-		this(new BlacklistingConsulFailoverStrategy(targets, timeout));
+		this(new BlacklistingConsulWithRecoverFailoverStrategy(targets, timeout));
 	}
 
 	/**

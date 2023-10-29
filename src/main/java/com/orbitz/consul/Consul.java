@@ -480,12 +480,12 @@ public class Consul {
         * @return The builder.
         */
         public Builder withMultipleHostAndPort(Collection<HostAndPort> hostAndPort, long blacklistTimeInMillis) {
-            Preconditions.checkArgument(blacklistTimeInMillis >= 0, "Negative Value");
+
+            Preconditions.checkArgument(blacklistTimeInMillis >= 0, "Negative Value not allowed for blacklistTimeInMillis");
             Preconditions.checkArgument(hostAndPort.size() >= 2, "Minimum of 2 addresses are required");
 
             consulFailoverInterceptor = new ConsulFailoverInterceptor(hostAndPort, blacklistTimeInMillis);
             withHostAndPort(hostAndPort.stream().findFirst().get());
-            
             return this;
         }
         
@@ -496,7 +496,6 @@ public class Consul {
          */
         public Builder withFailoverInterceptor(ConsulFailoverStrategy strategy) {
         	Preconditions.checkArgument(strategy != null, "Must not provide a null strategy");
-        	
         	consulFailoverInterceptor = new ConsulFailoverInterceptor(strategy);
         	return this;
         }
